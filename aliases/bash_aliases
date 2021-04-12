@@ -1,0 +1,111 @@
+export EDITOR="nvim"
+alias lock='i3lock -c 000000'
+alias pm='sudo pacman'
+
+# Grep
+alias -g g='grep'
+alias -g gi='grep -i'
+alias -g ge='grep -E'
+alias -g gir='grep -ir'
+alias -g gv='grep -v'
+alias -g giv='grep -iv'
+alias grep='grep --color=auto'
+alias egrep='egrep --color=auto'
+alias fgrep='fgrep --color=auto'
+
+# Misc program launch
+alias calc='gcalccmd'
+alias clip='DISPLAY=:0 xclip -selection clipboard'
+alias curl='curl -A "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.90 Safari/537.36" -k'
+alias dig='dig +short'
+alias getip="nslookup $1 | grep Address: | grep -v \# | cut -d' ' -f2"
+alias guid='python -c '\''import uuid; print str(uuid.uuid1())'\'' | pbcopy'
+alias grepip='grep -oE "\b([0-9]{1,3}\.){3}[0-9]{1,3}(\/([0-9]|[1-2][0-9]|3[0-2]))?\b"'
+alias i3config='i3 --more-version | grep -oP "Loaded i3 config: \K.*(?= \(Last modified)"'
+alias ifconfig='ip -c --brief addr show'
+alias mkdir='mkdir -pv'
+alias myip='curl ifconfig.me/ip'
+alias nmap='nmap -g53 --randomize-hosts --script-args http.useragent="Mozilla/5.0 (Windows NT 10.    0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.71 Safari/537.36 Edge/12.0i" '
+alias ns='sudo netstat -anp | grep LIST | grep -E "^tcp" | grep -v tcp6 | sort'
+alias nsl='nslookup'
+alias pubkey='cat ~/.ssh/id_rsa.pub | xclip'
+alias setcur='rm ~/current && ln -s $(pwd) ~/current'
+alias sha1='openssl sha1'
+alias wget='wget -c'
+alias aur='yay -S --noconfirm --needed'
+
+# Editing
+alias vrc='nvim ~/.zshrc'
+alias src='source ~/.zshrc'
+alias valiases='nvim ~/.bash_aliases'
+alias saliases='source ~/.bash_aliases'
+alias vim='nvim'
+alias i3conf='nvim ~/.config/i3/config'
+
+# Navigation
+alias h="cd ~"
+alias j='jump'
+alias kg='k --group-directories-first'
+alias ls='exa -l --group-directories-first --git'
+alias lss='ls -ltraSG'
+alias lls='ls -ltra'
+alias ..='cd ..'
+alias ...='cd ../../../'
+alias ....='cd ../../../../'
+alias .....='cd ../../../../'
+alias .4='cd ../../../../'
+alias .5='cd ../../../../..'
+alias tree='exa --tree --long'
+
+# Tmux
+alias tmconf='nvim ~/.tmux.conf'
+alias tmls='tmux ls'
+alias tmsess='tmux attach -t'
+alias tmcolors='for i in {0..255}; do printf "\x1b[38;5;${i}mcolor%-5i\x1b[0m" $i ; if ! (( ($i + 1 ) % 8 )); then echo ; fi ; done'
+alias tmnew='tmux new -s'
+alias tmload='tmux source-file ~/.tmux.conf'
+alias tmlayout='tmux list-windows | sed -n "s/.*layout \(.*\)] @.*/\1/p"'
+alias mux='tmuxinator'
+
+# ZSH
+alias zshcolors='spectrum_ls'
+
+# Screen
+alias ss='screen -S'
+alias sd='screen -dRR'
+alias sl='screen -ls'
+alias sx='screen -x'
+
+# Taskwarrior
+alias t='task'
+alias ta='task add'
+alias tl='task list'
+alias td='task done'
+alias tm='task modify'
+alias tlc='task list project:Current'
+alias tac='task add project:Current'
+
+# Git
+alias gadd='git add'
+alias gcam='git commit -am'
+alias gpull='git pull origin master'
+alias gpush='git push origin master'
+alias gsub='git submodule update --recursive && git pull --recurse-submodules'
+alias glog='git log --graph --pretty=format:'\''%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'\'' --abbrev-commit'
+alias gpwd='for i in $(git ls-tree -r master | cut -d " " -f 3 | cut -f 1); do echo -e "${i}"; git cat-file -p ${i} | grep -i password; done'
+
+# Typos
+alias Grep='grep'
+alias pythong='python'
+
+# Functions
+function kirbi {
+	b64ticket=$(cat $1 | sed 's/ //g' | tr -d '\n')
+	wrapper="[IO.File]::WriteAllBytes(\"ticket.kirbi\", [Convert]::FromBase64String(\"${b64ticket}\"))"
+	echo -e "${wrapper}" | pbcopy
+	echo "[+] PowerShell wrapper saved to clipboard."
+}
+
+function getssh() {
+  awk "/$1/,/^$/" < ~/.ssh/include/*
+}
