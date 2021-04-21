@@ -1,5 +1,5 @@
 "
-" Vundle
+" Vim plug
 "
 set nocompatible
 filetype off
