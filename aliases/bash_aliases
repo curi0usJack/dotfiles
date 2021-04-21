@@ -20,6 +20,7 @@ alias curl='curl -A "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHT
 alias dig='dig +short'
 alias getip="nslookup $1 | grep Address: | grep -v \# | cut -d' ' -f2"
 alias guid='python -c '\''import uuid; print str(uuid.uuid1())'\'' | pbcopy'
+alias http='sudo python3 -m http.server 80'
 alias grepip='grep -oE "\b([0-9]{1,3}\.){3}[0-9]{1,3}(\/([0-9]|[1-2][0-9]|3[0-2]))?\b"'
 alias i3config='i3 --more-version | grep -oP "Loaded i3 config: \K.*(?= \(Last modified)"'
 alias ifconfig='ip -c --brief addr show'
@@ -33,6 +34,8 @@ alias setcur='rm ~/current && ln -s $(pwd) ~/current'
 alias sha1='openssl sha1'
 alias wget='wget -c'
 alias aur='yay -S --noconfirm --needed'
+alias toptcp='sort -r -k3 /usr/share/nmap/nmap-services | head -n 250 | grep tcp | awk '\''{print $2}'\'' | cut -d"/" -f1 | tr "\r\n" "," | sed '\''s/,$//'\'''
+alias topudp='sort -r -k3 /usr/share/nmap/nmap-services | head -n 250 | grep udp | awk '\''{print $2}'\'' | cut -d"/" -f1 | tr "\r\n" "," | sed '\''s/,$//'\'''
 
 # Editing
 alias vrc='nvim ~/.zshrc'
