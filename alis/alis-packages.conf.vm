@@ -4,8 +4,6 @@
 # Some variables accept a single value others accept multiple values as annotated in the comments.
 # Some variables are boolean with a value of true or false.
 #
-# Read the Arch Linux wiki pages to learn more about the variables values.
-# https://github.com/picodotdev/alis/blob/master/README.md
 
 # packages (all multiple)
 
@@ -15,7 +13,7 @@ PACKAGES_PACMAN_INSTALL="true"
 PACKAGES_PACMAN_INTERNET=""
 PACKAGES_PACMAN_MULTIMEDIA="xorg lightdm rofi"
 PACKAGES_PACMAN_UTILITIES="base-devel trash-cli screen xsel net-tools nfs-utils exa wget curl fzf dnsutils findutils unzip openssl mlocate nmap tmux mlocate gocryptfs htop neofetch gnome dunst speedtest-cli"
-PACKAGES_PACMAN_DOCUMENTS_AND_TEXT="neovim"
+PACKAGES_PACMAN_DOCUMENTS_AND_TEXT="neovim vim"
 PACKAGES_PACMAN_COMMUNICATION=""
 PACKAGES_PACMAN_GAMES=""
 PACKAGES_PACMAN_SECURITY=""

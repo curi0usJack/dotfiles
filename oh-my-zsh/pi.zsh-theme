@@ -2,13 +2,13 @@
 time_enabled="%(?.%{$fg[green]%}.%{$fg[red]%})%*%{$reset_color%}"
 time_disabled="%{$fg[green]%}%*%{$reset_color%}"
 time=$time_enabled
-#PROMPT=' %{$fg[green]%}%W ${time} $fg[blue]%}$(get_pwd)%{$reset_color%} $(git_prompt_info)${prompt_suffix}'
 PROMPT='%{$fg[green]%}%W ${time} %{$fg[blue]%}$(get_pwd)%{$reset_color%} $(git_prompt_info)${prompt_suffix}'
 
 local return_status="%(?:%{$fg_bold[green]%}π:%{$fg_bold[red]%}π)"
 
 #local prompt_suffix="%{$fg[magenta]%} %{$reset_color%} "
-local prompt_suffix="%{$fg[magenta]%}❯%{$reset_color%} "
+# local prompt_suffix="%{$fg[magenta]%}❯%{$reset_color%} "
+local prompt_suffix="%{$fg[magenta]%} %{$reset_color%} "
 # local prompt_suffix="%F{207}❯%{$reset_color%} "
 
 # by shashankmehta (https://github.com/shashankmehta)

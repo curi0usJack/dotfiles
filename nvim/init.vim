@@ -5,17 +5,13 @@ set nocompatible
 filetype off
 call plug#begin('~/.vim/plugged')
 Plug 'mboughaba/i3config.vim'
-" Plug 'ncm2/ncm2'
-" Plug 'ncm2/ncm2-bufword'
-" Plug 'ncm2/ncm2-path'
 Plug 'roxma/nvim-yarp'
-Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'airblade/vim-gitgutter'
 Plug 'bps/vim-textobj-python'
 Plug 'christoomey/vim-sort-motion'
 Plug 'christoomey/vim-system-copy'
 Plug 'christoomey/vim-tmux-navigator'
-Plug 'davidhalter/jedi-vim'
+" Plug 'davidhalter/jedi-vim'
 Plug 'dracula/vim', { 'name': 'dracula' }
 Plug 'frazrepo/vim-rainbow'
 Plug 'johnantoni/vim-wildignore'
@@ -24,8 +20,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'kana/vim-textobj-indent'
 Plug 'kana/vim-textobj-user'
 Plug 'mrk21/yaml-vim'
-Plug 'preservim/nerdtree'
-Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+Plug 'neovim/nvim-lspconfig'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-fugitive'
@@ -38,7 +33,16 @@ Plug 'dense-analysis/ale'
 Plug 'morhetz/gruvbox'
 Plug 'ryanoasis/vim-devicons'
 Plug 'joshdick/onedark.vim'
+Plug 'ggandor/lightspeed.nvim'
+Plug 'puremourning/vimspector'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'nvim-treesitter/playground'
+Plug 'haorenW1025/completion-nvim'
+Plug 'nvim-treesitter/nvim-treesitter'
+Plug 'nvim-treesitter/completion-treesitter'
 call plug#end()
+
+lua require'lspconfig'.pyright.setup{}
 
 "
 " Vim Options
@@ -121,6 +125,35 @@ let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
 let g:Powerline_symbols = 'fancy'
 
+" FOR COMPLETION-TREESITTER MODULE
+" Configure the completion chains
+let g:completion_chain_complete_list = {
+            \'default' : {
+            \    'default' : [
+            \        {'complete_items' : ['lsp', 'snippet']},
+            \        {'mode' : 'file'}
+            \    ],
+            \    'comment' : [],
+            \    'string' : []
+            \    },
+            \'vim' : [
+            \    {'complete_items': ['snippet']},
+            \    {'mode' : 'cmd'}
+            \    ],
+            \'c' : [
+            \    {'complete_items': ['ts']}
+            \    ],
+            \'python' : [
+            \    {'complete_items': ['ts']}
+            \    ],
+            \'lua' : [
+            \    {'complete_items': ['ts']}
+            \    ],
+            \}
+
+" Use completion-nvim in every buffer
+autocmd BufEnter * lua require'completion'.on_attach()
+
 "
 " Fix Typos
 "
@@ -152,48 +185,48 @@ autocmd BufWritePre *.yml silent! %s/ \]/\]/g " Remove spaces before bracket
 "
 " suppress the annoying 'match x of y', 'The only match' and 'Pattern not
 " found' messages
-set shortmess+=c
+" set shortmess+=c
 
-" CTRL-C doesn't trigger the InsertLeave autocmd . map to <ESC> instead.
-inoremap <c-c> <ESC>
+" " CTRL-C doesn't trigger the InsertLeave autocmd . map to <ESC> instead.
+" inoremap <c-c> <ESC>
 
-" When the <Enter> key is pressed while the popup menu is visible, it only
-" hides the menu. Use this mapping to close the menu and also start a new
-" line.
-inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
+" " When the <Enter> key is pressed while the popup menu is visible, it only
+" " hides the menu. Use this mapping to close the menu and also start a new
+" " line.
+" inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
 
-" Use <TAB> to select the popup menu:
-inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+" " Use <TAB> to select the popup menu:
+" inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+" inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
-" wrap existing omnifunc
-" Note that omnifunc does not run in background and may probably block the
-" editor. If you don't want to be blocked by omnifunc too often, you could
-" add 180ms delay before the omni wrapper:
-"  'on_complete': ['ncm2#on_complete#delay', 180,
-"               \ 'ncm2#on_complete#omni', 'csscomplete#CompleteCSS'],
-au User Ncm2Plugin call ncm2#register_source({
-		\ 'name' : 'css',
-		\ 'priority': 9,
-		\ 'subscope_enable': 1,
-		\ 'scope': ['css','scss'],
-		\ 'mark': 'css',
-		\ 'word_pattern': '[\w\-]+',
-		\ 'complete_pattern': ':\s*',
-		\ 'on_complete': ['ncm2#on_complete#omni', 'csscomplete#CompleteCSS'],
-		\ })
+" " wrap existing omnifunc
+" " Note that omnifunc does not run in background and may probably block the
+" " editor. If you don't want to be blocked by omnifunc too often, you could
+" " add 180ms delay before the omni wrapper:
+" "  'on_complete': ['ncm2#on_complete#delay', 180,
+" "               \ 'ncm2#on_complete#omni', 'csscomplete#CompleteCSS'],
+" au User Ncm2Plugin call ncm2#register_source({
+" 		\ 'name' : 'css',
+" 		\ 'priority': 9,
+" 		\ 'subscope_enable': 1,
+" 		\ 'scope': ['css','scss'],
+" 		\ 'mark': 'css',
+" 		\ 'word_pattern': '[\w\-]+',
+" 		\ 'complete_pattern': ':\s*',
+" 		\ 'on_complete': ['ncm2#on_complete#omni', 'csscomplete#CompleteCSS'],
+" 		\ })
 
 "
 " Jedi-vim Options
 "
-let g:jedi#goto_command = "<leader>d"
-let g:jedi#goto_assignments_command = "<leader>g"
-let g:jedi#goto_stubs_command = "<leader>s"
-let g:jedi#goto_definitions_command = ""
-let g:jedi#documentation_command = "K"
-let g:jedi#usages_command = "<leader>u"
-let g:jedi#completions_command = "<C-Space>"
-let g:jedi#rename_command = "<leader>r"
+" let g:jedi#goto_command = "<leader>d"
+" let g:jedi#goto_assignments_command = "<leader>g"
+" let g:jedi#goto_stubs_command = "<leader>s"
+" let g:jedi#goto_definitions_command = ""
+" let g:jedi#documentation_command = "K"
+" let g:jedi#usages_command = "<leader>u"
+" let g:jedi#completions_command = "<C-Space>"
+" let g:jedi#rename_command = "<leader>r"
 "
 " ALE
 let g:ale_enabled = 1

@@ -42,10 +42,10 @@
 set_from_resource $mod  i3-wm.mod Mod1
 set_from_resource $alt  i3-wm.alt Mod4
 
-default_border pixel 			1
+default_border pixel 			2
 default_floating_border pixel 	1
 
-gaps inner 						15
+gaps inner 						25
 gaps outer 						15
 # Only enable gaps on a workspace when there is at least one container
 smart_gaps on
@@ -135,7 +135,8 @@ bindsym $mod+l focus right
 ## Navigate // Workspaces 1-10 // <> 0..9 ##
 bindsym $mod+1 workspace $ws1
 bindsym $mod+2 workspace $ws2
-bindsym $mod+3 workspace $ws3
+# bindsym $mod+3 workspace $ws3
+bindsym $mod+3 exec i3-msg workspace 3-comms && /usr/bin/i3lock -c 000000
 bindsym $mod+4 workspace $ws4
 bindsym $mod+5 workspace $ws5
 bindsym $mod+6 workspace $ws6
@@ -308,7 +309,7 @@ bindsym Ctrl+Shift+c 		exec --no-startup-id "flameshot gui -p /home/jason/Pictur
 
 bindsym $mod+d 				exec gnome-control-center display
 
-bindsym $mod+Shift+e 		exec /usr/bin/gnome-session-quit --logout
+bindsym $mod+Shift+e 		exec i3-msg exit
 
 bindsym $mod+Tab+i			i3-msg workspace 3-comms; [class="Signal"] focus || signal-desktop
 bindsym $mod+i 				bar mode toggle
@@ -490,4 +491,4 @@ font $i3-wm.font
 
 # Start Rofication for notifications
 exec --no-startup-id /usr/bin/rofication-daemon
-exec --no-startup-id "/home/jason/autostart.sh"
+exec --no-startup-id "/home/jason/autostart/autostart.sh"

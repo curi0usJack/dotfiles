@@ -15,6 +15,7 @@ alias fgrep='fgrep --color=auto'
 
 # Misc program launch
 alias nm='nmap'
+alias pc='proxychains4'
 alias calc='gcalccmd'
 alias clip='DISPLAY=:0 xclip -selection clipboard'
 alias curl='curl -A "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.90 Safari/537.36" -k'
@@ -54,12 +55,13 @@ alias ls='exa -l --group-directories-first --git'
 alias lss='ls -ltraSG'
 alias lls='ls -ltra'
 alias ..='cd ..'
-alias ...='cd ../../../'
-alias ....='cd ../../../../'
+alias ...='cd ../../'
+alias ....='cd ../../../'
 alias .....='cd ../../../../'
 alias .4='cd ../../../../'
 alias .5='cd ../../../../..'
 alias tree='exa --tree --long'
+alias open='pcmanfm'
 
 # Tmux
 alias tmconf='nvim ~/.tmux.conf'
@@ -88,6 +90,10 @@ alias td='task done'
 alias tm='task modify'
 alias tlc='task list project:Current'
 alias tac='task add project:Current'
+
+# Transmission
+alias tmr='transmission-remote'
+alias tmd='transmission-daemon'
 
 # Git
 alias gadd='git add'
@@ -124,4 +130,9 @@ function kirbi {
 
 function getssh() {
   awk "/$1/,/^$/" < ~/.ssh/include/*
+}
+
+function upgrade() {
+  sudo pacman -Syu --noconfirm -c
+  yay -Syu --noconfirm --needed
 }

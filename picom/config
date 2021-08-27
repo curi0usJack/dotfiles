@@ -15,18 +15,19 @@ size-transition = true
 #             Corners           #
 #################################
 # requires: https://github.com/sdhand/compton or https://github.com/jonaburg/picom
-corner-radius = 10.0;
+corner-radius = 5.0;
 rounded-corners-exclude = [
   #"window_type = 'normal'",
   "class_g = 'awesome'",
   "class_g = 'URxvt'",
   "class_g = 'XTerm'",
   "class_g = 'kitty'",
-  "class_g = 'Alacritty'",
+  # "class_g = 'Alacritty'",
+  "class_g = 'Peek'",
   "class_g = 'Polybar'",
   "class_g = 'code-oss'",
   #"class_g = 'TelegramDesktop'",
-  "class_g = 'firefox'",
+  # "class_g = 'firefox'",
   "class_g = 'Thunderbird'"
 ];
 round-borders = 1;
@@ -103,6 +104,7 @@ shadow-exclude = [
   "class_g ?= 'Notify-osd'",
   "class_g = 'Cairo-clock'",
   "class_g = 'slop'",
+  "class_g = 'Peek'",
   "class_g = 'Polybar'",
   "_GTK_FRAME_EXTENTS@:c"
 ];
@@ -210,6 +212,7 @@ opacity-rule = [
   "100:class_g    = 'URxvt'",
   "100:class_g    = 'kitty'",
   "90:class_g    = 'Alacritty'",
+  "100:class_g	  = 'Peek'",
   "80:class_g     = 'Polybar'",
   "100:class_g    = 'code-oss'",
   "100:class_g    = 'Meld'",
@@ -279,6 +282,7 @@ blur-background-exclude = [
   # when taking selection screenshot with `main`
   # https://github.com/naelstrof/maim/issues/130
   "class_g = 'slop'",
+  "class_g = 'Peek'",
   "_GTK_FRAME_EXTENTS@:c"
 ];
 
@@ -463,7 +467,7 @@ log-level = "info";
 # logs might still be written to the stderr.
 # When setting this option from the config file, it is recommended to use an absolute path.
 #
-# log-file = '/path/to/your/log/file'
+log-file = '/tmp/picom.log'
 
 # Show all X errors (for debugging)
 # show-all-xerrors = false
