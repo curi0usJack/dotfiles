@@ -4,23 +4,33 @@
 set nocompatible
 filetype off
 call plug#begin('~/.vim/plugged')
-Plug 'mboughaba/i3config.vim'
-Plug 'roxma/nvim-yarp'
 Plug 'airblade/vim-gitgutter'
-Plug 'bps/vim-textobj-python'
 Plug 'christoomey/vim-sort-motion'
 Plug 'christoomey/vim-system-copy'
 Plug 'christoomey/vim-tmux-navigator'
-" Plug 'davidhalter/jedi-vim'
+Plug 'dense-analysis/ale'
 Plug 'dracula/vim', { 'name': 'dracula' }
-Plug 'frazrepo/vim-rainbow'
+Plug 'ggandor/lightspeed.nvim'
 Plug 'johnantoni/vim-wildignore'
+Plug 'joshdick/onedark.vim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'kana/vim-textobj-indent'
 Plug 'kana/vim-textobj-user'
+Plug 'mboughaba/i3config.vim'
+Plug 'morhetz/gruvbox'
 Plug 'mrk21/yaml-vim'
 Plug 'neovim/nvim-lspconfig'
+Plug 'nvim-lua/completion-nvim'
+Plug 'nvim-treesitter/completion-treesitter'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'nvim-treesitter/playground'
+Plug 'Pocco81/DAPInstall.nvim'
+Plug 'puremourning/vimspector'
+Plug 'ray-x/guihua.lua', {'do': 'cd lua/fzy && make' }
+Plug 'ray-x/lsp_signature.nvim'
+Plug 'ray-x/navigator.lua'
+Plug 'ryanoasis/vim-devicons'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-fugitive'
@@ -29,21 +39,21 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-vinegar'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'dense-analysis/ale'
-Plug 'morhetz/gruvbox'
-Plug 'ryanoasis/vim-devicons'
-Plug 'joshdick/onedark.vim'
-Plug 'ggandor/lightspeed.nvim'
-Plug 'puremourning/vimspector'
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-Plug 'nvim-treesitter/playground'
-Plug 'haorenW1025/completion-nvim'
-Plug 'nvim-treesitter/nvim-treesitter'
-Plug 'nvim-treesitter/completion-treesitter'
 call plug#end()
 
 lua require'lspconfig'.pyright.setup{}
+lua require'lspconfig'.pyright.setup{on_attach=require'completion'.on_attach}
 
+lua require'lspconfig'.clangd.setup{}
+lua require'lspconfig'.clangd.setup{on_attach=require'completion'.on_attach}
+
+" https://github.com/ray-x/navigator.lua
+" gr to show reference
+lua require'navigator'.setup{}
+
+lua require "lsp_signature".setup()
+
+command! Scratch lua require'tools'.makeScratch()
 "
 " Vim Options
 "
@@ -51,6 +61,7 @@ set nohlsearch
 let g:dracula_colorterm = 0
 let g:dracula_italic = 0
 let g:python3_host_prog='/usr/bin/python3'
+" colorscheme aurora
 colorscheme onedark
 " colorscheme dracula
 set background=dark
@@ -60,6 +71,7 @@ set laststatus=2
 set nocompatible
 set number
 set relativenumber
+set termguicolors
 " set rtp+=/usr/local/opt/fzf
 set shiftwidth=4
 set hidden
@@ -91,6 +103,7 @@ let g:hardtime_default_on = 0
 "
 let mapleader=","
 map <leader>w :w<cr>
+map <leader>r :redraw<cr>
 map <leader>ga :G add %<cr>
 map <leader>gs :G status<cr>
 map <leader>gc :G commit<cr>
@@ -153,6 +166,7 @@ let g:completion_chain_complete_list = {
 
 " Use completion-nvim in every buffer
 autocmd BufEnter * lua require'completion'.on_attach()
+" autocmd BufEnter * python require'completion'.on_attach()
 
 "
 " Fix Typos
@@ -180,54 +194,7 @@ autocmd BufWritePre *.yml silent! %s/ \]/\]/g " Remove spaces before bracket
 " enable ncm2 for all buffers
 " autocmd BufEnter * call ncm2#enable_for_buffer()
 " autocmd vimenter * colorscheme gruvbox
-"
-" ncm2 options
-"
-" suppress the annoying 'match x of y', 'The only match' and 'Pattern not
-" found' messages
-" set shortmess+=c
 
-" " CTRL-C doesn't trigger the InsertLeave autocmd . map to <ESC> instead.
-" inoremap <c-c> <ESC>
-
-" " When the <Enter> key is pressed while the popup menu is visible, it only
-" " hides the menu. Use this mapping to close the menu and also start a new
-" " line.
-" inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
-
-" " Use <TAB> to select the popup menu:
-" inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-" inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-
-" " wrap existing omnifunc
-" " Note that omnifunc does not run in background and may probably block the
-" " editor. If you don't want to be blocked by omnifunc too often, you could
-" " add 180ms delay before the omni wrapper:
-" "  'on_complete': ['ncm2#on_complete#delay', 180,
-" "               \ 'ncm2#on_complete#omni', 'csscomplete#CompleteCSS'],
-" au User Ncm2Plugin call ncm2#register_source({
-" 		\ 'name' : 'css',
-" 		\ 'priority': 9,
-" 		\ 'subscope_enable': 1,
-" 		\ 'scope': ['css','scss'],
-" 		\ 'mark': 'css',
-" 		\ 'word_pattern': '[\w\-]+',
-" 		\ 'complete_pattern': ':\s*',
-" 		\ 'on_complete': ['ncm2#on_complete#omni', 'csscomplete#CompleteCSS'],
-" 		\ })
-
-"
-" Jedi-vim Options
-"
-" let g:jedi#goto_command = "<leader>d"
-" let g:jedi#goto_assignments_command = "<leader>g"
-" let g:jedi#goto_stubs_command = "<leader>s"
-" let g:jedi#goto_definitions_command = ""
-" let g:jedi#documentation_command = "K"
-" let g:jedi#usages_command = "<leader>u"
-" let g:jedi#completions_command = "<C-Space>"
-" let g:jedi#rename_command = "<leader>r"
-"
 " ALE
 let g:ale_enabled = 1
 let g:ale_fixers = ['trim_whitespace', 'remove_trailing_lines']

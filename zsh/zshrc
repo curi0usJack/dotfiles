@@ -28,7 +28,7 @@ export DISABLE_AUTO_UPDATE=false
 export TERM=screen-256color
 export FINDBUGS_HOME=/usr/local/Cellar/findbugs/3.0.1/libexec
 [ -f ~/.personal_zsh_jumps ] && source ~/.personal_zsh_jumps
-plugins=(history taskwarrior git tmux osx httpie)
+plugins=(history taskwarrior git tmux osx httpie zsh-autosuggestions)
 
 # Pyenv
 export PYENV_VERSION=3.9.1
@@ -98,6 +98,8 @@ function auto_pipenv_shell {
     if [ ! -n "${PIPENV_ACTIVE+1}" ]; then
         if [ -f "Pipfile" ] ; then
             pipenv shell
+		elif [ -d ".venv" ]; then
+			source ./.venv/bin/activate
         fi
     fi
 }

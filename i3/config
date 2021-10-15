@@ -136,7 +136,8 @@ bindsym $mod+l focus right
 bindsym $mod+1 workspace $ws1
 bindsym $mod+2 workspace $ws2
 # bindsym $mod+3 workspace $ws3
-bindsym $mod+3 exec i3-msg workspace 3-comms && /usr/bin/i3lock -c 000000
+# bindsym $mod+3 exec i3-msg workspace 3-comms && /usr/bin/i3lock -c 000000
+bindsym $mod+3 workspace $ws3
 bindsym $mod+4 workspace $ws4
 bindsym $mod+5 workspace $ws5
 bindsym $mod+6 workspace $ws6

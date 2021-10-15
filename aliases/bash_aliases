@@ -17,7 +17,9 @@ alias fgrep='fgrep --color=auto'
 alias nm='nmap'
 alias pc='proxychains4'
 alias calc='gcalccmd'
-alias clip='DISPLAY=:0 xclip -selection clipboard'
+alias cal='cal 2021'
+# alias clip='DISPLAY=:0 xclip -selection clipboard'
+alias clip='copyq copy - > /dev/null'
 alias curl='curl -A "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.90 Safari/537.36" -k'
 alias dig='dig +short'
 alias getip="nslookup $1 | grep Address: | grep -v \# | cut -d' ' -f2"
@@ -30,7 +32,6 @@ alias mkdir='mkdir -pv'
 alias myip='curl ifconfig.me/ip'
 alias nmap='nmap -g53 --randomize-hosts --script-args http.useragent="Mozilla/5.0 (Windows NT 10.    0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.71 Safari/537.36 Edge/12.0i" '
 alias ns='sudo netstat -anp | grep LIST | grep -E "^tcp" | grep -v tcp6 | sort'
-alias nsl='nslookup'
 alias pubkey='cat ~/.ssh/id_rsa.pub | xclip'
 alias setcur='rm ~/current && ln -s $(pwd) ~/current'
 alias sha1='openssl sha1'
@@ -135,4 +136,8 @@ function getssh() {
 function upgrade() {
   sudo pacman -Syu --noconfirm -c
   yay -Syu --noconfirm --needed
+}
+
+function nsl() {
+  sudo netstat -anp | grep LIST | grep $1
 }
