@@ -134,7 +134,7 @@ function getssh() {
 }
 
 function upgrade() {
-  sudo pacman -Syu --noconfirm -c
+  sudo pacman -Syu --noconfirm
   yay -Syu --noconfirm --needed
 }
 

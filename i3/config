@@ -69,8 +69,9 @@ set $ws1 1-term
 set $ws2 2-web
 set $ws3 3-comms
 set $ws4 4-virtualbox
-set $ws5 5-rdp
+set $ws5 5-notes
 set $ws6 6-spotify
+set $ws7 7-rdp
 set_from_resource $ws7  i3-wm.workspace.07.name "7"
 set_from_resource $ws8  i3-wm.workspace.08.name "8"
 set_from_resource $ws9  i3-wm.workspace.09.name "9"
@@ -98,7 +99,7 @@ assign [class="discord"]	3-comms
 assign [class="Mattermost"]	3-comms
 assign [class="Signal"]		3-comms
 assign [class="VirtualBox Manager"]	4-virtualbox
-assign [class="org.remmina.Remmina" ] 5-rdp
+assign [class="org.remmina.Remmina" ] 7-rdp
 assign [class="Spotify"]	6-spotify
 exec --no-startup-id i3-msg 'exec /usr/bin/alacritty; workspace 1-term'
 exec --no-startup-id i3-msg 'exec /usr/bin/brave-browser; workspace 2-web'
@@ -286,7 +287,8 @@ bindsym $mod+Return 		exec /usr/bin/alacritty
 bindsym $mod+Shift+Return 	exec gtk-launch $(xdg-settings get default-web-browser)
 
 # Rofi
-set 	$rofiTheme			/home/jason/.config/rofi/dracula.rasi
+# set 	$rofiTheme			/home/jason/.config/rofi/nord.rasi
+set		$rofiTheme			rounded-gray-dark.rasi
 bindsym $mod+space 			exec rofi -show drun -theme $rofiTheme
 bindsym $mod+Shift+space 	exec rofi -show run -theme $rofiTheme
 bindsym $mod+Ctrl+space 	exec rofi -show window -theme $rofiTheme

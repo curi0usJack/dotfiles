@@ -1,5 +1,4 @@
-"
-" Vim plug
+
 "
 set nocompatible
 filetype off
@@ -133,7 +132,8 @@ ab bp __import__('ipdb').set_trace(context=10)
 " Airline/Powerline
 "
 let g:airline#extensions#tabline#formatter = 'default'
-let g:airline_theme='gruvbox'
+let g:airline_theme='onedark'
+" let g:airline_theme='simple'
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
 let g:Powerline_symbols = 'fancy'

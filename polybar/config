@@ -131,9 +131,10 @@ ws-icon-0 = 1-term;
 ws-icon-1 = 2-web;
 ws-icon-4 = 3-comms;
 ws-icon-5 = 4-virtualbox;>
-ws-icon-6 = 5-rdp;>
+ws-icon-6 = 5-notes;
 ws-icon-3 = 6-spotify;
 ws-icon-2 = code;
+ws-icon-7 = 7-rdp;>
 ws-icon-default = 
 
 label-dimmed-underline = ${root.background}
