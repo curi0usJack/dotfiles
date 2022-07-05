@@ -1,6 +1,6 @@
 export PATH="/home/jason/.config/vifm/scripts:/home/jason/.pyenv/bin:$PATH"
 
-eval "$(pyenv init -)"
+# eval "$(pyenv init -)"
 # eval "$(pyenv virtualenv-init -)"
 
 # Make Vi mode transitions faster (KEYTIMEOUT is in hundredths of a second)
@@ -31,13 +31,13 @@ export FINDBUGS_HOME=/usr/local/Cellar/findbugs/3.0.1/libexec
 plugins=(history taskwarrior git tmux osx httpie zsh-autosuggestions)
 
 # Pyenv
-export PYENV_VERSION=3.9.1
+export PYENV_VERSION=3.10.2
 export PYENV_ROOT=/home/jason/.pyenv
 export PATH="$PYENV_ROOT/shims:$PYENV_ROOT/bin:${PATH}"
 export PYENV_SHELL=zsh
 # source '/home/jason/.pyenv/libexec/../completions/pyenv.zsh'
 
-# Sourcing
+
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source $ZSH/oh-my-zsh.sh
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

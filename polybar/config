@@ -33,7 +33,8 @@ font-4 = FontAwesome:size=10;0
 
 ;modules-left = openweathermap
 modules-center = spotify previous playpause next
-modules-right = wireless-network wired-network clock
+; modules-right = wireless-network wired-network clock
+modules-right = alsa clock
 
 wm-restack = bspwm
 
@@ -75,6 +76,7 @@ font-5 = Unifont:size=9;0
 font-6 = Termsynu:size=9;0
 
 modules-left = i3
+modules-center = xwindow
 ;modules-center =
 modules-right =  network-traffic fs-root cpu memory clock
 ;modules-right = memory
@@ -366,6 +368,7 @@ label-full =
 type = internal/xwindow
 label-maxlen = 75
 label-foreground = #bbb
+label = %title:0:60:...%
 
 [module/powermenu]
 type = custom/menu
@@ -403,3 +406,57 @@ menu-2-1-foreground = ${colors.accent}
 menu-2-1-exec = menu-open-0
 
 ; vim:ft=dosini
+[module/pulseaudio]
+type = internal/pulseaudio
+
+format-volume = <label-volume> <bar-volume>
+label-volume = VOL
+label-volume-foreground = ${root.foreground}
+
+label-muted = 🔇 muted
+label-muted-foreground = #666
+
+bar-volume-width = 10
+bar-volume-foreground-0 = #55aa55
+bar-volume-foreground-1 = #55aa55
+bar-volume-foreground-2 = #55aa55
+bar-volume-foreground-3 = #55aa55
+bar-volume-foreground-4 = #55aa55
+bar-volume-foreground-5 = #f5a70a
+bar-volume-foreground-6 = #ff5555
+bar-volume-gradient = false
+bar-volume-indicator = |
+bar-volume-indicator-font = 2
+bar-volume-fill = ─
+bar-volume-fill-font = 2
+bar-volume-empty = ─
+bar-volume-empty-font = 2
+bar-volume-empty-foreground = ${colors.foreground-alt}
+
+[module/alsa]
+type = internal/alsa
+master-soundcard = default
+master-mixer = Master
+interval = 5
+format-volume = <label-volume> <bar-volume>
+label-volume = VOL
+label-volume-foreground = ${root.foreground}
+format-muted-prefix = " "
+format-muted-foreground = ${colors.foreground-alt}
+label-muted = sound muted
+bar-volume-width = 10
+bar-volume-foreground-0 = #55aa55
+bar-volume-foreground-1 = #55aa55
+bar-volume-foreground-2 = #f5a70a
+bar-volume-foreground-3 = #f5a70a
+bar-volume-foreground-4 = #f5a70a
+bar-volume-foreground-5 = #f5a70a
+bar-volume-foreground-6 = #ff5555
+bar-volume-gradient = true
+bar-volume-indicator = |
+bar-volume-indicator-font = 2
+bar-volume-fill =─
+bar-volume-fill-font = 2
+bar-volume-empty =─
+bar-volume-empty-font = 2
+bar-volume-empty-foreground = ${colors.foreground-alt

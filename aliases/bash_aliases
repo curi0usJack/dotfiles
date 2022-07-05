@@ -12,6 +12,7 @@ alias -g giv='grep -iv'
 alias grep='grep --color=auto'
 alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
+alias trace='strace -o /tmp/trace -f -t -e trace=file'
 
 # Misc program launch
 alias nm='nmap'
@@ -19,7 +20,7 @@ alias pc='proxychains4'
 alias calc='gcalccmd'
 alias cal='cal 2021'
 # alias clip='DISPLAY=:0 xclip -selection clipboard'
-alias clip='copyq copy - > /dev/null'
+# alias clip='copyq copy - > /dev/null'
 alias curl='curl -A "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.90 Safari/537.36" -k'
 alias dig='dig +short'
 alias getip="nslookup $1 | grep Address: | grep -v \# | cut -d' ' -f2"
@@ -30,13 +31,13 @@ alias i3config='i3 --more-version | grep -oP "Loaded i3 config: \K.*(?= \(Last m
 alias ifconfig='ip -c --brief addr show'
 alias mkdir='mkdir -pv'
 alias myip='curl ifconfig.me/ip'
-alias nmap='nmap -g53 --randomize-hosts --script-args http.useragent="Mozilla/5.0 (Windows NT 10.    0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.71 Safari/537.36 Edge/12.0i" '
+alias nmap='nmap -g53 --randomize-hosts --script-args http.useragent="Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.71 Safari/537.36 Edge/12.0i" '
 alias ns='sudo netstat -anp | grep LIST | grep -E "^tcp" | grep -v tcp6 | sort'
 alias pubkey='cat ~/.ssh/id_rsa.pub | xclip'
 alias setcur='rm ~/current && ln -s $(pwd) ~/current'
 alias sha1='openssl sha1'
 alias wget='wget -c'
-alias aur='yay -S --noconfirm --needed'
+alias aur='paru -S --noconfirm --needed'
 alias toptcp='sort -r -k3 /usr/share/nmap/nmap-services | head -n 250 | grep tcp | awk '\''{print $2}'\'' | cut -d"/" -f1 | tr "\r\n" "," | sed '\''s/,$//'\'''
 alias topudp='sort -r -k3 /usr/share/nmap/nmap-services | head -n 250 | grep udp | awk '\''{print $2}'\'' | cut -d"/" -f1 | tr "\r\n" "," | sed '\''s/,$//'\'''
 
@@ -65,6 +66,7 @@ alias tree='exa --tree --long'
 alias open='pcmanfm'
 
 # Tmux
+alias e='exit'
 alias tmconf='nvim ~/.tmux.conf'
 alias tmls='tmux ls'
 alias tmsess='tmux attach -t'
@@ -91,6 +93,9 @@ alias td='task done'
 alias tm='task modify'
 alias tlc='task list project:Current'
 alias tac='task add project:Current'
+alias tan='task add project:Current due:today'
+alias tad='task add due:today'
+alias tat='task add due:tomorrow'
 
 # Transmission
 alias tmr='transmission-remote'
@@ -133,11 +138,27 @@ function getssh() {
   awk "/$1/,/^$/" < ~/.ssh/include/*
 }
 
+function clip() {
+  cat $1 | copyq copy - > /dev/null
+}
+
 function upgrade() {
   sudo pacman -Syu --noconfirm
-  yay -Syu --noconfirm --needed
+  paru -Syu --noconfirm --needed
+}
+
+function gitpull() {
+  cd /home/jason/Tools/force
+  find ./ -type d -iname ".git" -execdir git pull \;
+
+  cd /home/jason/Documents/ReportingAF
+  git pull origin master
 }
 
 function nsl() {
   sudo netstat -anp | grep LIST | grep $1
+}
+
+function xrdp_bhs() {
+  xfreerdp /v:147.75.49.215:33202 /cert-ignore /u:trustedsec /p:'gimme the shellz^' /size:1920x1280 /drive:share,/tmp/share +clipboard
 }

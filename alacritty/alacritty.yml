@@ -13,6 +13,7 @@ env:
   TERM: xterm-256color
 
 window:
+  opacity: 0.9
   # Window dimensions (changes require restart)
   #
   # Specified in number of columns/lines, not pixels.
@@ -98,7 +99,7 @@ font:
     family: Inconsolata Nerd Font
 
     # The `style` can be specified to pick a specific face.
-    style: Regular
+    style: Medium
 
   # Bold font face
   #bold:
@@ -168,13 +169,8 @@ font:
 # If `true`, bold text is drawn using the bright color variants.
 #draw_bold_text_with_bright_colors: false
 
-# Colors (Tomorrow Night Bright)
+Colors: One Dark
 colors:
-  # Default colors
-  # primary:
-  #   background: '#1c1e1f'
-  #   foreground: '#bcc0bc'
-
   cursor:
     text: '#bcc0bc'
     cursor: '#ffffff'
@@ -183,41 +179,6 @@ colors:
     text: '#d5dee2'
     background: '#2f4553'
 
-  # Normal colors
-  # JLang standard terminal
-  # normal:
-  #   black:   '#546d79'
-  #   red:     '#ff5b5b'
-  #   green:   '#61e077'
-  #   yellow:  '#ffd73f'
-  #   blue:    '#40c4fe'
-  #   magenta: '#ff3f80'
-  #   cyan:    '#64fcda'
-  #   white:   '#fefefe'
-
-  # # DT colors
-  # normal:
-  #   black:   '0x1c1f24'
-  #   red:     '0xff6c6b'
-  #   green:   '0x98be65'
-  #   yellow:  '0xda8548'
-  #   blue:    '0x51afef'
-  #   magenta: '0xc678dd'
-  #   cyan:    '0x5699af'
-  #   white:   '0x202328'
-
-  # # Bright colors
-  # bright:
-  #   black:   '0x5b6268'
-  #   red:     '0xda8548'
-  #   green:   '0x4db5bd'
-  #   yellow:  '0xecbe7b'
-  #   blue:    '0x3071db'   # This is 2257a0 in Doom Emacs but I lightened it.
-  #   magenta: '0xa9a1e1'
-  #   cyan:    '0x46d9ff'
-  #   white:   '0xdfdfdf'
-
-  # One Dark
   primary:
     background: '0x262626'
     foreground: '0xabb2bf'
@@ -244,41 +205,57 @@ colors:
     cyan:    '0x56b6c2'
     white:   '0xffffff'
 
-  # Bright colors
-  #bright:
-  #  black:   '#666666'
-  #  red:     '#ff3334'
-  #  green:   '#9ec400'
-  #  yellow:  '#e7c547'
-  #  blue:    '#7aa6da'
-  #  magenta: '#b77ee0'
-  #  cyan:    '#54ced6'
-  #  white:   '#ffffff'
-
-  # Dim colors
-  #
-  # If the dim colors are not set, they will be calculated automatically based
-  # on the `normal` colors.
-  #dim:
-  #  black:   '#000000'
-  #  red:     '#8c3336'
-  #  green:   '#7a8530'
-  #  yellow:  '#97822e'
-  #  blue:    '#506d8f'
-  #  magenta: '#80638e'
-  #  cyan:    '#497e7a'
-  #  white:   '#9a9a9a'
-
-  # Indexed Colors
-  #
-  # The indexed colors include all colors from 16 to 256.
-  # When these are not set, they're filled with sensible defaults.
-  #
-  # Example:
-  #   `- { index: 16, color: '#ff00ff' }`
-  #
-  #indexed_colors: []
-
+# Colors: Nord Arctic
+# colors:
+#   primary:
+#     # background: '#2e3440'
+#     background: '#1f232b'
+#     # foreground: '#d8dee9'
+#     foreground: '#cfd2d6'
+#     dim_foreground: '#a5abb6'
+#   cursor:
+#     text: '#2e3440'
+#     cursor: '#d8dee9'
+#   vi_mode_cursor:
+#     text: '#2e3440'
+#     cursor: '#d8dee9'
+#   selection:
+#     text: CellForeground
+#     background: '#4c566a'
+#   search:
+#     matches:
+#       foreground: CellBackground
+#       background: '#88c0d0'
+#     bar:
+#       background: '#434c5e'
+#       foreground: '#d8dee9'
+#   normal:
+#     black: '#3b4252'
+#     red: '#bf616a'
+#     green: '#a3be8c'
+#     yellow: '#ebcb8b'
+#     blue: '#81a1c1'
+#     magenta: '#b48ead'
+#     cyan: '#88c0d0'
+#     white: '#e5e9f0'
+#   bright:
+#     black: '#4c566a'
+#     red: '#bf616a'
+#     green: '#a3be8c'
+#     yellow: '#ebcb8b'
+#     blue: '#81a1c1'
+#     magenta: '#b48ead'
+#     cyan: '#8fbcbb'
+#     white: '#eceff4'
+#   dim:
+#     black: '#373e4d'
+#     red: '#94545d'
+#     green: '#809575'
+#     yellow: '#b29e75'
+#     blue: '#68809a'
+#     magenta: '#8c738c'
+#     cyan: '#6d96a5'
+    # white: '#aeb3bb'
 # Visual Bell
 #
 # Any time the BEL code is received, Alacritty "rings" the visual bell. Once
@@ -311,7 +288,7 @@ colors:
 # The value `0.0` is completely transparent and `1.0` is opaque.
 # background_opacity: 0.8
 # background_opacity: 0.9
-background_opacity: 0.9
+# background_opacity: 0.8
 
 selection:
   #semantic_escape_chars: ",│`|:\"' ()[]{}<>\t"

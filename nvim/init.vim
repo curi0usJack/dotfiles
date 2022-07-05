@@ -9,18 +9,20 @@ Plug 'christoomey/vim-system-copy'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'dense-analysis/ale'
 Plug 'dracula/vim', { 'name': 'dracula' }
-Plug 'ggandor/lightspeed.nvim'
-Plug 'johnantoni/vim-wildignore'
+"Plug 'ggandor/lightspeed.nvim'
+"Plug 'johnantoni/vim-wildignore'
 Plug 'joshdick/onedark.vim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'kana/vim-textobj-indent'
 Plug 'kana/vim-textobj-user'
 Plug 'mboughaba/i3config.vim'
-Plug 'morhetz/gruvbox'
+"Plug 'morhetz/gruvbox'
 Plug 'mrk21/yaml-vim'
+Plug 'ms-jpq/coq_nvim', {'branch': 'coq'}
+Plug 'ms-jpq/coq.artifacts', {'branch': 'artifacts'} "Snippets
 Plug 'neovim/nvim-lspconfig'
-Plug 'nvim-lua/completion-nvim'
+" Plug 'nvim-lua/completion-nvim'
 Plug 'nvim-treesitter/completion-treesitter'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'nvim-treesitter/playground'
@@ -38,14 +40,14 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-vinegar'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+"Plug 'arcticicestudio/nord-vim'
 call plug#end()
 
-lua require'lspconfig'.pyright.setup{}
-lua require'lspconfig'.pyright.setup{on_attach=require'completion'.on_attach}
+" lua require'lspconfig'.pyright.setup{}
+" lua require'lspconfig'.pyright.setup{on_attach=require'completion'.on_attach}
 
-lua require'lspconfig'.clangd.setup{}
-lua require'lspconfig'.clangd.setup{on_attach=require'completion'.on_attach}
-
+" lua require'lspconfig'.clangd.setup{}
+" lua require'lspconfig'.clangd.setup{on_attach=require'completion'.on_attach}
 " https://github.com/ray-x/navigator.lua
 " gr to show reference
 lua require'navigator'.setup{}
@@ -53,15 +55,28 @@ lua require'navigator'.setup{}
 lua require "lsp_signature".setup()
 
 command! Scratch lua require'tools'.makeScratch()
+autocmd VimEnter * COQnow
+
+" Vimspector
+let g:vimspector_enable_mappings = 'HUMAN'
+packadd! vimspector
 "
 " Vim Options
 "
+"
+" Transparent background
+augroup user_colors
+  autocmd!
+  autocmd ColorScheme * highlight Normal ctermbg=NONE guibg=NONE
+augroup END
+
 set nohlsearch
 let g:dracula_colorterm = 0
 let g:dracula_italic = 0
 let g:python3_host_prog='/usr/bin/python3'
 " colorscheme aurora
 colorscheme onedark
+" colorscheme nord
 " colorscheme dracula
 set background=dark
 set diffopt=vertical,filler
@@ -109,13 +124,18 @@ map <leader>gc :G commit<cr>
 map <leader>gp :G push origin master<cr>
 map <leader>gj :diffget //3
 map <leader>gf :diffget //2
+map <leader>pt :w! \| :terminal python3 -m pytest<cr>
 map <leader>n :NERDTreeToggle<cr>
-map <leader>q :bd<cr>
-map <leader>q! :bd!<cr>
+" map <leader>q :bd<cr>
+" map <leader>q! :bd!<cr>
 map <leader>p3 :w! \| :!python3 %<cr>
 map <leader>p2 :w! \| :!python %<cr>
-map <leader>ans :w! \| :!ansible-playbook % --step
-map <leader>asyn :w! \| :!ansible-playbook % --syntax-check
+map <leader>ans :w! \| :!ansible-playbook % --step<cr>
+
+" Close buffer without closing window pane
+map <leader>q :bp \| sp \| bn \| bd<cr>
+
+map <leader>asyn :w! \| :!ansible-playbook % --syntax-check<cr>
 map <leader>src :source ~/.config/nvim/init.vim<cr>
 map <leader>vrc :e ~/.config/nvim/init.vim<cr>
 map <leader>f :Files<cr>
@@ -124,10 +144,13 @@ map <leader>b :Buffer<cr>
 map <leader>v :vnew<cr>
 map <leader>o <c-O><cr>
 map <leader>i <c-I><cr>
+nmap <leader>di <Plug>VimspectorBalloonEval
 nnoremap <leader>cd :cd %:p:h<cr>
 
-" Add ipdb breakpoint with on insert mode
-ab bp __import__('ipdb').set_trace(context=10)
+"
+" Add ipdb breakpoint with on insert mode. :h abbreviate
+iab bp __import__('ipdb').set_trace(context=10)
+
 "
 " Airline/Powerline
 "
@@ -165,7 +188,7 @@ let g:completion_chain_complete_list = {
             \}
 
 " Use completion-nvim in every buffer
-autocmd BufEnter * lua require'completion'.on_attach()
+" autocmd BufEnter * lua require'completion'.on_attach()
 " autocmd BufEnter * python require'completion'.on_attach()
 
 "
